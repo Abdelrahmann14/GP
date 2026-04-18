@@ -1,0 +1,20 @@
+spring:
+  application:
+    name: Rest
+  datasource:
+    driver-class-name: oracle.jdbc.OracleDriver
+    url: jdbc:oracle:thin:@//localhost:1521/ORCL25
+    username: C##RESTAURANT
+    password: 143266
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+  message:
+    basename:
+      i18n/Message
+server:
+  port: 9091
+token:
+  secretKey: JHG87236JHG87236JHG87236JHG87236
+  time: PT24H
