@@ -1,0 +1,42 @@
+.nav-item.nav-link {
+  transition: color 0.3s ease;
+}
+
+.nav-item.nav-link:hover {
+  color: #8B0000 !important;
+}
+
+.nav-item.nav-link:hover div {
+  color: #8B0000 !important;
+}
+
+.nav-item.nav-link:hover .fas {
+  color: #8B0000 !important;
+}
+
+.span {
+  transition: color 0.3s ease;
+}
+
+.fas.fa-cart-arrow-down {
+  transition: color 0.3s ease;
+  color: #000000 !important;
+}
+
+/* Cart Link Styles */
+.cart-link {
+  text-decoration: none;
+}
+
+.cart-content {
+  font-size: 31px;
+  color: #000000 !important;
+}
+
+.cart-content .span {
+  color: #000000 !important;
+}
+
+.cart-content i {
+  color: #000000 !important;
+}

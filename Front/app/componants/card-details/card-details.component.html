@@ -1,0 +1,178 @@
+<section class="ftco-section">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-md-6 text-center mb-4">
+        <h1 class="heading-section">Your Cart</h1>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="table-wrap">
+          <table class="table">
+            <thead class="thead-primary">
+              <tr>
+                <th>&nbsp;</th>
+                <th>Image</th>
+                <th>Product</th>
+                <th>Price</th>
+                <th>ADD</th>
+                <th>Quantity</th>
+                <th>REMOVE</th>
+                <th>Total</th>
+                <th>Delete</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="alert" role="alert" *ngFor="let order of orders">
+                <td>
+                  <label class="checkbox-wrap checkbox-primary"></label>
+                </td>
+                <td>
+                  <img class="img" src="assets/img/{{order.imagePath}}" alt="{{order.name}}" />
+                </td>
+                <td>
+                  <div class="email">
+                    <span>{{order.name}}</span>
+                    <span>{{order.description}}</span>
+                  </div>
+                </td>
+                <td>${{order.price}}</td>
+                <td class="quantity">
+                  <div class="input-group">
+                    <a href="javascript:void(0)" (click)="incrementQuantity(order)">
+                      <i class="fa fa-plus"></i>
+                    </a>
+                  </div>
+                </td>
+                <td class="quantity">
+                  <div class="input-group">
+                    <input disabled type="text" name="quantity" class="quantity form-control input-number" value="{{order.quantity}}" min="1" max="100">
+                  </div>
+                </td>
+                <td class="quantity">
+                  <div class="input-group">
+                    <a href="javascript:void(0)" (click)="decrementQuantity(order)">
+                      <i class="fa fa-minus"></i>
+                    </a>
+                  </div>
+                </td>
+                <td>${{order.price * order.quantity | number:'1.2-2'}}</td>
+                <td>
+                  <button type="button" class="close" (click)="removeOrder(order)" aria-label="Close">
+                    X
+                  </button>
+                </td>
+              </tr>
+
+              <!-- Empty cart message -->
+              <tr *ngIf="orders.length === 0">
+                <td colspan="9" class="text-center">
+                  <h4>Your cart is empty</h4>
+                  <a routerLink="/products" class="btn btn-primary mt-3">Continue Shopping</a>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- Checkout Button -->
+    <div class="row justify-content-center mt-5" *ngIf="orders.length > 0">
+      <div class="col-md-6 col-lg-4">
+        <div class="checkout-button-container">
+          <button class="btn btn-checkout" (click)="toggleCheckoutForm()">
+            <i class="fas fa-shopping-cart"></i>
+            {{showCheckoutForm ? 'Hide Checkout' : 'Checkout'}}
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Order Summary -->
+    <div class="row justify-content-center mt-3" *ngIf="orders.length > 0 && showCheckoutForm">
+      <div class="col-md-8 col-lg-6">
+        <div class="card order-summary-card">
+          <div class="card-header">
+            <h4 class="mb-0">Order Summary</h4>
+          </div>
+          <div class="card-body">
+            <div class="d-flex justify-content-between mb-3">
+              <h5>Total Items:</h5>
+              <h5>{{totalSize}}</h5>
+            </div>
+            <div class="d-flex justify-content-between mb-3">
+              <h5>Total Price:</h5>
+              <h5>${{totalPrice | number:'1.2-2'}}</h5>
+            </div>
+            <button class="btn btn-success btn-block mt-3" (click)="proceedToCheckout()">Proceed to Checkout</button>
+            <button class="btn btn-secondary btn-block mt-2" routerLink="/products">Continue Shopping</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Invoice Modal -->
+<div class="invoice-overlay" *ngIf="showInvoice" (click)="closeInvoice()">
+  <div class="invoice-container" (click)="$event.stopPropagation()">
+    <div class="invoice-header">
+      <h2>Invoice</h2>
+      <button class="close-btn" (click)="closeInvoice()">&times;</button>
+    </div>
+
+    <div class="invoice-content">
+      <div class="invoice-info">
+        <div class="invoice-details">
+          <p><strong>Invoice Number:</strong> {{invoiceNumber}}</p>
+          <p><strong>Date:</strong> {{invoiceDate}}</p>
+        </div>
+        <div class="company-info">
+          <h3>Restaurant Name</h3>
+          <p>123 Food Street</p>
+          <p>City, State 12345</p>
+          <p>Phone: (555) 123-4567</p>
+        </div>
+      </div>
+
+      <div class="invoice-table">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Item</th>
+              <th>Quantity</th>
+              <th>Price</th>
+              <th>Total</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let order of orders">
+              <td>{{order.name}}</td>
+              <td>{{order.quantity}}</td>
+              <td>${{order.price | number:'1.2-2'}}</td>
+              <td>${{order.quantity * order.price | number:'1.2-2'}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="invoice-summary">
+        <div class="summary-row">
+          <span>Total Items:</span>
+          <span>{{totalSize}}</span>
+        </div>
+        <div class="summary-row total">
+          <span><strong>Total Amount:</strong></span>
+          <span><strong>${{totalPrice | number:'1.2-2'}}</strong></span>
+        </div>
+      </div>
+
+      <div class="invoice-actions">
+        <button class="btn btn-primary" (click)="printInvoice()">Print Invoice</button>
+        <button class="btn btn-success" (click)="completeOrder()">Complete Order</button>
+        <button class="btn btn-secondary" (click)="closeInvoice()">Close</button>
+      </div>
+    </div>
+  </div>
+</div>

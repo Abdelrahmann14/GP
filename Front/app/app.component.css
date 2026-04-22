@@ -1,0 +1,42 @@
+/* جعل المكون الرئيسي بعرض المتصفح الكامل */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  background: rgba(250, 250, 250, 0.89);
+}
+
+html, body {
+  width: 100%;
+  overflow-x: hidden;
+
+}
+
+.app-container {
+  width: 100vw;
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+}
+
+app-header, app-footer, router-outlet {
+  width: 100%;
+  display: block;
+}
+
+/* إزالة أي هوامش أو حشو من العناصر الرئيسية */
+.container, .container-fluid, .container-xxl {
+  width: 100% !important;
+  max-width: none !important;
+  margin: 0 !important;
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+}
+
+/* زر العودة للأعلى */
+.back-to-top {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 1000;
+}

@@ -1,0 +1,61 @@
+<div class="login-container">
+  <div class="login-card">
+    <!-- Left Section - Illustration -->
+    <div class="illustration-section">
+    </div>
+    
+    <!-- Right Section - Form -->
+    <div class="form-section">
+      <div class="form-content">
+        <h2 class="form-title">Sign In</h2>
+        <p class="form-subtitle">Unlock your world.</p>
+
+        <!-- Email -->
+        <div class="form-group">
+          <label class="form-label">
+            <span class="bullet">•</span>Email
+          </label>
+          <input type="email" id="username" name="username" class="form-control" #userName
+                 (input)="clearUserName()" placeholder="Enter your email" />
+          <div class="error-message" *ngIf="isUserNameValid">
+            invalid user name | اسم المستخدم إجباري
+          </div>
+          <div class="error-message" *ngIf="usernameError">{{ usernameError }}</div>
+        </div>
+
+        <!-- Password -->
+        <div class="form-group">
+          <label class="form-label">
+            <span class="bullet">•</span>Password
+          </label>
+          <div class="password-input-wrapper">
+            <input [type]="showPassword ? 'text' : 'password'" id="password" name="password" class="form-control" #password
+                   (input)="clearPassword()" placeholder="Enter your password" />
+            <button type="button" class="password-toggle" (click)="togglePasswordVisibility()">
+              <i class="fas" [class.fa-eye]="showPassword" [class.fa-eye-slash]="!showPassword"></i>
+            </button>
+          </div>
+          <div class="error-message" *ngIf="isPasswordValid">
+            password is required | الرقم السري إجباري
+          </div>
+          <div class="error-message" *ngIf="passwordError">{{ passwordError }}</div>
+        </div>
+
+        <!-- Sign In Button -->
+        <button class="signin-btn" (click)="login(userName.value, password.value)">
+          Sign In
+        </button>
+
+        <!-- Create Account Button -->
+        <button class="create-account-btn" routerLink="/signup">
+          Create an account
+        </button>
+
+        <!-- Message -->
+        <div class="message-card" *ngIf="message != ''">
+          <div class="message message-ar">{{ message }}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

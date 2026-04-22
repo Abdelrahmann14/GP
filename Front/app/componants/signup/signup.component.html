@@ -1,0 +1,121 @@
+<div class="signup-container">
+  <div class="signup-card">
+    <!-- Left Section - Illustration -->
+    <div class="illustration-section">
+    </div>
+    
+    <!-- Right Section - Form -->
+    <div class="form-section">
+      <div class="form-content">
+        <h2 class="form-title">Create Account</h2>
+        <p class="form-subtitle">Join our community.</p>
+
+        <!-- Username -->
+        <div class="form-group">
+          <label class="form-label">
+            <span class="bullet">•</span>Username
+          </label>
+          <input type="text" id="username" name="username" class="form-control" #userName
+                 (input)="clearUserName()" placeholder="Enter your username" />
+          <div class="error-message" *ngIf="isUserNameValid">
+            Username is required
+          </div>
+          <div class="error-message" *ngIf="usernameError">{{ usernameError }}</div>
+        </div>
+
+        <!-- Password -->
+            <div class="form-group">
+          <label class="form-label">
+            <span class="bullet">•</span>Password
+          </label>
+          <div class="password-input-wrapper">
+            <input [type]="showPassword ? 'text' : 'password'" id="password" name="password" class="form-control" #password
+                   (input)="clearPassword()" placeholder="Enter your password" />
+            <button type="button" class="password-toggle" (click)="togglePasswordVisibility()">
+              <i class="fas" [class.fa-eye]="showPassword" [class.fa-eye-slash]="!showPassword"></i>
+            </button>
+          </div>
+          <div class="error-message" *ngIf="isPasswordValid">
+            Password is required
+            </div>
+              <div class="error-message" *ngIf="passwordError">{{ passwordError }}</div>
+            </div>
+
+        <!-- Confirm Password -->
+            <div class="form-group">
+          <label class="form-label">
+            <span class="bullet">•</span>Confirm Password
+          </label>
+          <div class="password-input-wrapper">
+            <input [type]="showConfirmPassword ? 'text' : 'password'" id="confirm" name="confirm" class="form-control" #confirmPassword
+                   (input)="clearConfirmPassword()" placeholder="Confirm your password" />
+            <button type="button" class="password-toggle" (click)="toggleConfirmPasswordVisibility()">
+              <i class="fas" [class.fa-eye]="showConfirmPassword" [class.fa-eye-slash]="!showConfirmPassword"></i>
+            </button>
+          </div>
+          <div class="error-message" *ngIf="isConfirmPasswordValid">
+            Confirm password is required
+          </div>
+          <div class="error-message" *ngIf="isPasswordMatched">
+            Passwords do not match
+          </div>
+              <div class="error-message" *ngIf="confirmPasswordError">{{ confirmPasswordError }}</div>
+            </div>
+
+        <!-- Age -->
+            <div class="form-group">
+          <label class="form-label">
+            <span class="bullet">•</span>Age
+          </label>
+          <input type="number" id="age" name="age" class="form-control" #age
+                 (input)="clearAge()" placeholder="Enter your age" min="1" max="120" />
+          <div class="error-message" *ngIf="isAgeValid">
+            Age is required
+          </div>
+              <div class="error-message" *ngIf="ageError">{{ ageError }}</div>
+            </div>
+
+        <!-- Phone Number -->
+            <div class="form-group">
+          <label class="form-label">
+            <span class="bullet">•</span>Phone Number
+          </label>
+          <input type="tel" id="phoneNumber" name="phoneNumber" class="form-control" #phoneNumber
+                 (input)="clearPhoneNumber()" placeholder="Enter your phone number" />
+          <div class="error-message" *ngIf="isPhoneNumberValid">
+            Phone number is required
+          </div>
+              <div class="error-message" *ngIf="phoneNumberError">{{ phoneNumberError }}</div>
+            </div>
+
+        <!-- Address -->
+            <div class="form-group">
+          <label class="form-label">
+            <span class="bullet">•</span>Address
+          </label>
+          <input type="text" id="address" name="address" class="form-control" #address
+                 (input)="clearAddress()" placeholder="Enter your address" />
+          <div class="error-message" *ngIf="isAddressValid">
+            Address is required
+          </div>
+              <div class="error-message" *ngIf="addressError">{{ addressError }}</div>
+            </div>
+
+        <!-- Create Account Button -->
+            <button class="signup-btn" (click)="createAccount(userName.value, password.value, confirmPassword.value, age.value, phoneNumber.value, address.value)">
+              Create Account
+            </button>
+
+        <!-- Login Link -->
+        <div class="login-link">
+          Already have an account? <a routerLink="/login">Login here</a>
+        </div>
+
+        <!-- Message -->
+            <div class="message-card" *ngIf="message != ''">
+              <div class="message message-ar">{{ message }}</div>
+            </div>
+          </div>
+      </div>
+  </div>
+</div>

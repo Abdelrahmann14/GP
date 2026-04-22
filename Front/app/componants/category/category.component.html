@@ -1,0 +1,23 @@
+<!-- Beautiful Categories Section -->
+<div class="categories-container">
+  <div class="categories-grid">
+    <div class="category-card" *ngFor="let cat of categories" 
+         [routerLink]="cat.name === 'ALL'? '/products' : '/category/' + cat.id"
+         [ngClass]="{'active': cat.name === 'ALL'}">
+      
+      <!-- Category Icon with beautiful background -->
+      <div class="category-icon-wrapper">
+        <i class="category-icon {{cat.logo}}"></i>
+      </div>
+      
+      <!-- Category Content -->
+      <div class="category-content">
+        <div class="category-flag">{{cat.flag}}</div>
+        <h3 class="category-name">{{cat.name}}</h3>
+      </div>
+      
+      <!-- Hover Effect Overlay -->
+      <div class="category-overlay"></div>
+    </div>
+  </div>
+</div>

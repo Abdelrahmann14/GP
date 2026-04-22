@@ -1,0 +1,114 @@
+
+
+<!-- Category & Products Unified Section -->
+<div class="unified-section mb-5">
+  <div class="container-fluid px-4">
+    <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
+      <h5 class="food-title ff-secondary text-center fw-normal">🍽️ Food Menu 🍽️</h5>
+    </div>
+    <div class="tab-class text-center wow fadeInUp" data-wow-delay="0.1s">
+      <app-category></app-category>
+    </div>
+    <div class="tab-content mt-4">
+      <div id="tab-1" class="tab-pane fade show p-0 active">
+        <div class="row g-4">
+          <div class="col-lg-4 col-md-6" *ngFor="let pro of products">
+            <div class="product-card">
+              <!-- Product Image Section -->
+              <div class="product-image-section">
+                <img class="product-image" src="../../../assets/img/{{pro.imagePath}}" alt="{{pro.name}}">
+              </div>
+              
+              <!-- Product Details Section -->
+              <div class="product-details">
+                <h5 class="product-name">{{pro.name}}</h5>
+                <div class="product-price">${{pro.price}}</div>
+                
+                <!-- Add to Cart Button -->
+                <button (click)="addProduct(pro)" type="button" class="add-to-cart-btn" [class.clicked]="pro.clicked">
+                  <span>Add to Cart</span>
+                  <i class="fas fa-shopping-cart"></i>
+                </button>
+                
+                <!-- Interactive Icons -->
+                <div class="product-actions">
+                  <div class="heart-icon">
+                    <i class="far fa-heart"></i>
+                  </div>
+                  <div class="rating">
+                    <span class="rating-number">4.5</span>
+                    <i class="fas fa-star"></i>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="message-card" *ngIf="message != ''">
+            <div class="message">{{message}}</div>
+          </div>
+        </div>
+
+        <!-- Pagination within products section -->
+        <div class="simple-pagination" *ngIf="products.length !== 0">
+          <div class="pagination-controls">
+            <!-- Page Size Selector -->
+            <div class="page-size-control">
+              <label>Show:</label>
+              <select (change)="changePageSize($event)">
+                <option value="2">2</option>
+                <option value="5">5</option>
+                <option value="10" selected>10</option>
+                <option value="20">20</option>
+                <option value="50">50</option>
+              </select>
+              <span>items per page</span>
+            </div>
+
+            <!-- Pagination Info -->
+            <div class="page-info">
+              <span>Showing {{ (page - 1) * pageLength + 1 }} to {{ Math.min(page * pageLength, collectionSize) }} of {{ collectionSize }} items</span>
+            </div>
+
+            <!-- Simple Pagination -->
+            <div class="page-buttons">
+              <button 
+                class="page-btn prev" 
+                [disabled]="page === 1"
+                (click)="doPagination(page - 1)">
+                <i class="fas fa-chevron-left"></i>
+                Previous
+              </button>
+
+              <div class="page-numbers">
+                <button 
+                  *ngFor="let pageNum of getPageNumbers()" 
+                  class="page-btn number"
+                  [class.active]="pageNum === page"
+                  [class.ellipsis]="pageNum === '...'"
+                  (click)="pageNum !== '...' ? doPagination(pageNum) : null">
+                  {{ pageNum }}
+                </button>
+              </div>
+
+              <button 
+                class="page-btn next" 
+                [disabled]="page >= getTotalPages()"
+                (click)="doPagination(page + 1)">
+                Next
+                <i class="fas fa-chevron-right"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Scroll to Top Button -->
+<div class="scroll-to-top" (click)="scrollToTop()" *ngIf="showScrollButton">
+  <i class="fas fa-arrow-up"></i>
+</div>
+
+<!-- Pagination moved inside products section -->
+
